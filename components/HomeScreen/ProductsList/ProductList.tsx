@@ -3,14 +3,18 @@ import ErrorView from "@/components/ErrorView";
 import { H1, Body } from "@/components/ui/Text";
 import { FlatList, RefreshControl, StyleSheet } from "react-native";
 import CardProduct from "../CardProduct/CardProduct";
-
+import Paginator from "@/components/Paginator";
+import React from "react";
+const LIMIT_PAGE = 10;
 export default function ProductList() {
+  const [page, setPage] = React.useState<number>(1);
   const { data, isFetching, isLoading, isError, refetch } = useGetProductsQuery(
     {
-      limit: 10,
-      page: 1,
+      limit: LIMIT_PAGE,
+      page,
     },
   );
+
   if (isError) {
     return <ErrorView onRetry={refetch} />;
   }
@@ -30,6 +34,14 @@ export default function ProductList() {
       renderItem={({ item, index }) => <CardProduct product={item} />}
       ListEmptyComponent={
         <Body style={styles.empty}>Nessun prodotto disponibile</Body>
+      }
+      ListFooterComponent={
+        <Paginator
+          currentPage={page}
+          itemsCountPerPage={data?.data.pagination.page!}
+          totalItemsCount={data?.data.pagination.totalItems!}
+          onChange={setPage}
+        />
       }
     />
   );
