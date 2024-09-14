@@ -1,6 +1,8 @@
 import React, { ReactElement } from "react";
-import { View, StyleSheet, Pressable } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Body } from "./ui/Text";
+import SafeArea from "./ui/SafeArea";
+import Button from "./ui/Button";
 
 const genericMessage =
   "Si è verificato un errore durante l’elaborazione della richiesta.\nAssicurati di essere connesso a Internet e riprova.";
@@ -12,27 +14,19 @@ type Props = {
 
 function ErrorView({ onRetry, defaultMessage }: Props): ReactElement {
   return (
-    <View>
-      <Body>{defaultMessage || genericMessage}</Body>
-      {onRetry ? (
-        <Pressable style={styles.button} onPress={onRetry}>
-          <Body>Riprova</Body>
-        </Pressable>
-      ) : null}
-    </View>
+    <SafeArea>
+      <View style={styles.container}>
+        <Body>{defaultMessage || genericMessage}</Body>
+        {onRetry ? <Button onPress={onRetry} label={"Riprova"} /> : null}
+      </View>
+    </SafeArea>
   );
 }
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: "row",
-  },
-  spaceHorizontal: {
-    marginHorizontal: 16,
-  },
-  button: {
-    alignSelf: "center",
-    marginTop: 16,
+  container: {
+    padding: 16,
+    gap: 16,
   },
 });
 

@@ -1,16 +1,22 @@
 import { useGetProductsQuery } from "@/api/products.api";
+import ErrorView from "@/components/ErrorView";
 import { H1, Body } from "@/components/ui/Text";
 import { FlatList, RefreshControl, StyleSheet } from "react-native";
+import CardProduct from "../CardProduct/CardProduct";
 
 export default function ProductList() {
-  const { data, isFetching, isLoading, refetch } = useGetProductsQuery({
-    limit: 20,
-    page: 1,
-  });
-  console.log(data);
+  const { data, isFetching, isLoading, isError, refetch } = useGetProductsQuery(
+    {
+      limit: 10,
+      page: 1,
+    },
+  );
+  if (isError) {
+    return <ErrorView onRetry={refetch} />;
+  }
   return (
     <FlatList
-      data={data}
+      data={data?.data.values}
       ListHeaderComponent={
         <H1 style={styles.sectionTitle}>Elenco dei nostri prodotti</H1>
       }
@@ -21,7 +27,7 @@ export default function ProductList() {
         />
       }
       keyExtractor={(item) => `${item.id}`}
-      renderItem={({ item, index }) => <Body>coa</Body>}
+      renderItem={({ item, index }) => <CardProduct product={item} />}
       ListEmptyComponent={
         <Body style={styles.empty}>Nessun prodotto disponibile</Body>
       }

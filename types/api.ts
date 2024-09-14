@@ -1,0 +1,12 @@
+export type PaginatorResponse<T> = {
+  values: T[];
+  pagination: {
+    page: number;
+    limit: number;
+    totalPages: number;
+    totalItems: number;
+  };
+};
+export type BaseResponse<T> = {
+  data: T;
+};

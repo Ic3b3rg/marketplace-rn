@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { StyleSheet } from "react-native";
+import { Platform, StatusBar, StyleSheet } from "react-native";
 import {
   SafeAreaView,
   NativeSafeAreaViewProps,
@@ -16,6 +16,7 @@ const SafeArea: FC<NativeSafeAreaViewProps> = ({ style, ...props }) => (
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 });
 
