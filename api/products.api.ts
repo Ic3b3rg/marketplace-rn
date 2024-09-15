@@ -1,8 +1,11 @@
-import { ProductListItem } from "@/types/product";
+import { ProductDetail, ProductListItem } from "@/types/product";
 import { baseApi } from "./api";
-import { BaseResponse, PaginatorResponse } from "@/types/api";
+import {
+  BaseResponse,
+  BaseResponseWithMessage,
+  PaginatorResponse,
+} from "@/types/api";
 
-// Iniettare productsApi nel baseApi
 export const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query<
@@ -15,7 +18,7 @@ export const productsApi = baseApi.injectEndpoints({
         res ? [{ type: "pageProdotti", id: req.page }] : [],
     }),
 
-    getProduct: builder.query<any, number>({
+    getProduct: builder.query<BaseResponseWithMessage<ProductDetail>, string>({
       query: (idProduct) => `products/${idProduct}`,
       providesTags: (res, err, idProduct) =>
         res ? [{ type: "dettaglioProdotto", id: idProduct }] : [],

@@ -10,3 +10,8 @@ export type PaginatorResponse<T> = {
 export type BaseResponse<T> = {
   data: T;
 };
+export type BaseResponseWithMessage<T> = {
+  data: T;
+  message: string;
+  status: number;
+};

@@ -35,7 +35,7 @@ export default function ProductList() {
         />
       }
       keyExtractor={(item, i) => `${i}`}
-      renderItem={({ item, index }) => <CardProduct product={item} />}
+      renderItem={({ item }) => <CardProduct product={item} />}
       ListEmptyComponent={
         <Body style={styles.empty}>Nessun prodotto disponibile</Body>
       }
