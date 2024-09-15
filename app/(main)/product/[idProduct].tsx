@@ -1,6 +1,6 @@
 import { useGetProductQuery } from "@/api/products.api";
 import ErrorView from "@/components/ErrorView";
-import { useLocalSearchParams } from "expo-router";
+import { Redirect, useLocalSearchParams } from "expo-router";
 import React from "react";
 import { ActivityIndicator, StyleSheet, View, Image } from "react-native";
 import { ProductDetail } from "@/types/product";
@@ -9,7 +9,18 @@ import SafeArea from "@/components/ui/SafeArea";
 import Button from "@/components/ui/Button";
 export default function ProductDetailScreen() {
   const { idProduct } = useLocalSearchParams<{ idProduct: string }>();
-  const { isSuccess, isError, data, isLoading } = useGetProductQuery(idProduct);
+  const { isSuccess, isError, data, isLoading, error } =
+    useGetProductQuery(idProduct);
+  if (isError && "status" in error && error.status === 403) {
+    return (
+      <Redirect
+        href={{
+          pathname: "/login",
+          params: { idProduct },
+        }}
+      />
+    );
+  }
   return (
     <SafeArea>
       <View style={styles.container}>

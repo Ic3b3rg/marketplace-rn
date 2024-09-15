@@ -42,8 +42,6 @@ export default function ProductList() {
       ListFooterComponent={
         <Paginator
           currentPage={page}
-          itemsCountPerPage={data?.data.pagination.page!}
-          totalItemsCount={data?.data.pagination.totalItems!}
           totalPage={data?.data.pagination.totalPages!}
           onChange={setPage}
         />

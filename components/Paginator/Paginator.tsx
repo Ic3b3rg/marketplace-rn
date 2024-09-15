@@ -1,22 +1,14 @@
 import * as React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { Body } from "../ui/Text";
 
 type Props = {
   currentPage: number;
-  itemsCountPerPage: number;
-  totalItemsCount: number;
   totalPage: number;
   onChange: (page: number) => void;
 };
 
-const Paginator = ({
-  currentPage,
-  itemsCountPerPage,
-  totalItemsCount,
-  totalPage,
-  onChange,
-}: Props) => {
+const Paginator = ({ currentPage, totalPage, onChange }: Props) => {
   return (
     <View style={styles.box}>
       <Navigation
@@ -49,14 +41,14 @@ const Navigation = ({
   onPress,
   disabled = false,
 }: React.PropsWithChildren<NavigationProps>) => (
-  <TouchableOpacity
+  <Pressable
     onPress={onPress}
     accessibilityLabel={accessibilityLabel}
     style={styles.page}
     disabled={disabled}
   >
     <Body style={styles.textNavigator}>{children}</Body>
-  </TouchableOpacity>
+  </Pressable>
 );
 
 const styles = StyleSheet.create({

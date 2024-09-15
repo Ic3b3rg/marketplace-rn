@@ -27,7 +27,7 @@ export default function Login() {
       await login(data);
       await signIn("newSession.data.data");
       router.navigate({
-        pathname: "/[idProduct]",
+        pathname: "/product/[idProduct]",
         params: { idProduct },
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

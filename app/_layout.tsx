@@ -1,17 +1,17 @@
 import { SessionProvider } from "@/context/auth";
 import { store } from "@/store/store";
 import {
+  ThemeProvider,
   DarkTheme,
   DefaultTheme,
-  ThemeProvider,
 } from "@react-navigation/native";
-import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
-import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { Provider } from "react-redux";
+import { useEffect } from "react";
+import { useFonts } from "expo-font";
 
-export default function Root() {
+const RootLayout = () => {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
@@ -33,12 +33,17 @@ export default function Root() {
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
           <Stack>
-            <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Stack.Screen name="[idProduct]" options={{ headerShown: false }} />
-            <Stack.Screen name="+not-found" />
+            <Stack.Screen
+              name="(main)"
+              options={{
+                headerShown: false,
+              }}
+            />
           </Stack>
         </ThemeProvider>
       </SessionProvider>
     </Provider>
   );
-}
+};
+
+export default RootLayout;

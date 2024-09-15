@@ -1,4 +1,5 @@
 import Button from "@/components/ui/Button";
+import LinkButton from "@/components/ui/LinkButton";
 import { Body } from "@/components/ui/Text";
 import { ProductListItem } from "@/types/product";
 import { Link } from "expo-router";
@@ -6,10 +7,6 @@ import { Image, StyleSheet, View } from "react-native";
 interface Props {
   product: ProductListItem;
 }
-export type RootStackParamList = {
-  ProductList: undefined;
-  ProductDetail: { productId: string };
-};
 export default function CardProduct({ product }: Props) {
   return (
     <View style={styles.container}>
@@ -21,12 +18,12 @@ export default function CardProduct({ product }: Props) {
         <Body>{product.title}</Body>
         <Link
           href={{
-            pathname: "/[idProduct]",
+            pathname: "/product/[idProduct]",
             params: { idProduct: product.id },
           }}
           asChild
         >
-          <Button label="Vai al prodotto" />
+          <LinkButton accessibilityRole="button" label="Vai al prodotto" />
         </Link>
       </View>
     </View>
