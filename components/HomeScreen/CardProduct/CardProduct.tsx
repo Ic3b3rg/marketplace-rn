@@ -21,10 +21,10 @@ export default function CardProduct({ product }: Props) {
         <Body>{product.title}</Body>
         <Link
           href={{
-            pathname: "/productDetail/[idProduct]",
+            pathname: "/[idProduct]",
             params: { idProduct: product.id },
           }}
-          asChild={true}
+          asChild
         >
           <Button label="Vai al prodotto" />
         </Link>

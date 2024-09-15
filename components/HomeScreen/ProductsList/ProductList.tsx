@@ -15,8 +15,12 @@ export default function ProductList() {
     },
   );
 
+  const retry = () => {
+    setPage(1);
+    refetch();
+  };
   if (isError) {
-    return <ErrorView onRetry={refetch} />;
+    return <ErrorView onRetry={retry} />;
   }
   return (
     <FlatList
@@ -30,7 +34,7 @@ export default function ProductList() {
           onRefresh={refetch}
         />
       }
-      keyExtractor={(item) => `${item.id}`}
+      keyExtractor={(item, i) => `${i}`}
       renderItem={({ item, index }) => <CardProduct product={item} />}
       ListEmptyComponent={
         <Body style={styles.empty}>Nessun prodotto disponibile</Body>
@@ -40,6 +44,7 @@ export default function ProductList() {
           currentPage={page}
           itemsCountPerPage={data?.data.pagination.page!}
           totalItemsCount={data?.data.pagination.totalItems!}
+          totalPage={data?.data.pagination.totalPages!}
           onChange={setPage}
         />
       }

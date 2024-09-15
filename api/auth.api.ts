@@ -1,22 +1,34 @@
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { baseApi } from "./api";
 
-// Iniettare authApi nel baseApi
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<any, { email: string; password: string }>({
-      query: ({ email, password }) => ({
-        url: "login",
-        method: "POST",
-        body: { email, password },
-      }),
-      invalidatesTags: ["Session", "Auth"],
+      async queryFn(
+        { email, password },
+        _queryApi,
+        _extraOptions,
+        fetchWithBQ,
+      ) {
+        const loginResult = await fetchWithBQ({
+          url: "auth",
+          method: "POST",
+          body: { email, password },
+        });
+        if (loginResult.error) {
+          return { error: loginResult.error as FetchBaseQueryError };
+        }
+        const sessionResult = await fetchWithBQ("auth/session");
+        return sessionResult.data
+          ? { data: sessionResult.data }
+          : { error: sessionResult.error as FetchBaseQueryError };
+      },
     }),
 
-    logout: builder.mutation<any, { email: string }>({
-      query: ({ email }) => ({
-        url: "logout",
+    logout: builder.mutation<any, void>({
+      query: () => ({
+        url: "auth",
         method: "DELETE",
-        body: { email },
       }),
       invalidatesTags: ["Session", "Auth"],
     }),

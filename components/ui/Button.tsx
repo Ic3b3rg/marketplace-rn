@@ -1,13 +1,13 @@
 import React from "react";
 import { Pressable, Text, StyleSheet, PressableProps } from "react-native";
 
-export default function Button(props: PressableProps & { label: string }) {
+export default function Button(props: PressableProps & { label?: string }) {
   return (
     <Pressable
       {...props}
       style={({ pressed }) => [styles.button, pressed && styles.buttonPressed]}
     >
-      <Text style={styles.buttonText}>{props.label}</Text>
+      {props.label && <Text style={styles.buttonText}>{props.label}</Text>}
     </Pressable>
   );
 }

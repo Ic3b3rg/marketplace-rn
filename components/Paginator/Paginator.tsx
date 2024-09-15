@@ -6,6 +6,7 @@ type Props = {
   currentPage: number;
   itemsCountPerPage: number;
   totalItemsCount: number;
+  totalPage: number;
   onChange: (page: number) => void;
 };
 
@@ -13,21 +14,23 @@ const Paginator = ({
   currentPage,
   itemsCountPerPage,
   totalItemsCount,
+  totalPage,
   onChange,
 }: Props) => {
-  const pagesCount = Math.ceil(totalItemsCount / itemsCountPerPage);
   return (
     <View style={styles.box}>
       <Navigation
         onPress={() => onChange(currentPage - 1)}
         accessibilityLabel="pagina precedente"
+        disabled={currentPage === 1}
       >
         ⟨
       </Navigation>
       <Body style={styles.textActive}>{currentPage}</Body>
       <Navigation
-        onPress={() => onChange(Math.min(currentPage + 1, pagesCount - 1))}
+        onPress={() => onChange(currentPage + 1)}
         accessibilityLabel="pagina successiva"
+        disabled={currentPage === totalPage}
       >
         ⟩
       </Navigation>
@@ -38,16 +41,19 @@ const Paginator = ({
 type NavigationProps = {
   accessibilityLabel: string;
   onPress: () => void;
+  disabled?: boolean;
 };
 const Navigation = ({
   accessibilityLabel,
   children,
   onPress,
+  disabled = false,
 }: React.PropsWithChildren<NavigationProps>) => (
   <TouchableOpacity
     onPress={onPress}
     accessibilityLabel={accessibilityLabel}
     style={styles.page}
+    disabled={disabled}
   >
     <Body style={styles.textNavigator}>{children}</Body>
   </TouchableOpacity>

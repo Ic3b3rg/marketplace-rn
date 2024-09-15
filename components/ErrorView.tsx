@@ -14,12 +14,10 @@ type Props = {
 
 function ErrorView({ onRetry, defaultMessage }: Props): ReactElement {
   return (
-    <SafeArea>
-      <View style={styles.container}>
-        <Body>{defaultMessage || genericMessage}</Body>
-        {onRetry ? <Button onPress={onRetry} label={"Riprova"} /> : null}
-      </View>
-    </SafeArea>
+    <View style={styles.container}>
+      <Body>{defaultMessage || genericMessage}</Body>
+      {onRetry ? <Button onPress={onRetry} label={"Riprova"} /> : null}
+    </View>
   );
 }
 
