@@ -30,7 +30,8 @@ export default function Login() {
         pathname: "/[idProduct]",
         params: { idProduct },
       });
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_) {
       Alert.alert("Error", "Si è verificato un errore");
     }
   };

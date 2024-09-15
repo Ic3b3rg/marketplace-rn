@@ -1,5 +1,6 @@
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { baseApi } from "./api";
+import { UserSession } from "@/types/auth";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -25,7 +26,7 @@ export const authApi = baseApi.injectEndpoints({
       },
     }),
 
-    logout: builder.mutation<any, void>({
+    logout: builder.mutation<Omit<UserSession, "data">, void>({
       query: () => ({
         url: "auth",
         method: "DELETE",
@@ -33,7 +34,7 @@ export const authApi = baseApi.injectEndpoints({
       invalidatesTags: ["Session", "Auth"],
     }),
 
-    getSession: builder.query<any, void>({
+    getSession: builder.query<UserSession, void>({
       query: () => "auth/session",
       providesTags: ["Session"],
     }),

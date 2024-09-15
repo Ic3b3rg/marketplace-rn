@@ -1,7 +1,6 @@
 import React, { ReactElement } from "react";
 import { StyleSheet, View } from "react-native";
 import { Body } from "./ui/Text";
-import SafeArea from "./ui/SafeArea";
 import Button from "./ui/Button";
 
 const genericMessage =
