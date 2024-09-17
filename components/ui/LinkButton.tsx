@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#5C3683",
   },
   buttonText: {
+    color: "#ffffff",
     fontWeight: "500",
     fontSize: 16,
     textAlign: "center",

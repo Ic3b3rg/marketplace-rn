@@ -1,4 +1,3 @@
-import Button from "@/components/ui/Button";
 import LinkButton from "@/components/ui/LinkButton";
 import { Body } from "@/components/ui/Text";
 import { ProductListItem } from "@/types/product";
@@ -12,10 +11,10 @@ export default function CardProduct({ product }: Props) {
     <View style={styles.container}>
       <Image
         source={{ uri: product.image }}
-        style={{ width: 80, height: 80 }}
+        style={{ width: 120, height: 120, borderRadius: 8 }}
       />
       <View style={styles.content}>
-        <Body>{product.title}</Body>
+        <Body style={styles.title}>{product.title}</Body>
         <Link
           href={{
             pathname: "/product/[idProduct]",
@@ -35,13 +34,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 8,
     backgroundColor: "white",
-    padding: 16,
     margin: 8,
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
   },
   content: {
+    flex: 1,
+    fontWeight: 700,
     alignItems: "center",
     gap: 8,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: 700,
   },
 });

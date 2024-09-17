@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
 
   textNavigator: {
     fontSize: 20,
+    color: "#fff",
   },
   textActive: {
     fontSize: 20,
